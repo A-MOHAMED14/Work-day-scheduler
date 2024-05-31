@@ -4,6 +4,8 @@
 const currentDateEL = $("#currentDay");
 const saveBtnEl = $(".saveBtn");
 const textareaEl = $(".description");
+const timeBlockEl = $(".time-block");
+
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
@@ -19,15 +21,15 @@ $(function () {
     const plandId = parentEl.attr("id");
     const planDescription = textareaEl.val();
 
-    console.log(parentEl);
-
-    savePlanToStorage();
+    // console.log(parentEl);
 
     function savePlanToStorage() {
-      console.log(plandId, "<-----");
-      console.log(planDescription, "*****");
+      // console.log(plandId, "<-----");
+      // console.log(planDescription, "*****");
       // localStorage.setItem(plandId, planDescription);
     }
+
+    savePlanToStorage();
   });
 
   //
@@ -36,6 +38,27 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
+
+  function addTenseClass() {
+    timeBlockEl.each(function () {
+      const blockTimeID = $(this).attr("id");
+
+      const blockTimeHr = parseInt(blockTimeID.slice(5));
+
+      const currentTimeHr = parseInt(dayjs().format("H"));
+
+      if (blockTimeHr > currentTimeHr) {
+        $(this).removeClass("past present").addClass("future");
+      } else if (blockTimeHr === currentTimeHr) {
+        $(this).removeClass("past future").addClass("present");
+      } else {
+        $(this).removeClass("present future").addClass("past");
+      }
+    });
+  }
+
+  addTenseClass();
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
