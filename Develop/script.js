@@ -17,19 +17,19 @@ $(function () {
   saveBtnEl.on("click", (event) => {
     event.preventDefault();
 
+    // console.log($(this).parents(), "<---");
+
     const parentEl = $(event.target).closest(".time-block");
     const plandId = parentEl.attr("id");
     const planDescription = textareaEl.val();
 
-    // console.log(parentEl);
-
     function savePlanToStorage() {
-      // console.log(plandId, "<-----");
-      // console.log(planDescription, "*****");
-      // localStorage.setItem(plandId, planDescription);
+      localStorage.setItem(plandId, planDescription);
     }
 
     savePlanToStorage();
+
+    getPlanFromStorage(plandId);
   });
 
   //
@@ -63,8 +63,22 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
+
+  function getPlanFromStorage(plandId) {
+    textareaEl.text(localStorage.getItem(plandId));
+  }
+
+  // localStorage.clear();
+  // console.log(localStorage);
+
   //
   // TODO: Add code to display the current date in the header of the page.
   // FORMAT: Monday, December 14th - DD, MMM, ??
   currentDateEL.text(dayjs().format("dddd[,] MMMM, D[th]"));
 });
+
+// const textareaClass = textareaEl.attr("class");
+// const classList = textareaClass.split(" ");
+// const hourClass = classList.find((className) =>
+//   className.startsWith("hour-")
+// );
