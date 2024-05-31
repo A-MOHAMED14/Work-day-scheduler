@@ -20,6 +20,14 @@ $(function () {
     const planDescription = textareaEl.val();
 
     console.log(parentEl);
+
+    savePlanToStorage();
+
+    function savePlanToStorage() {
+      console.log(plandId, "<-----");
+      console.log(planDescription, "*****");
+      // localStorage.setItem(plandId, planDescription);
+    }
   });
 
   //
