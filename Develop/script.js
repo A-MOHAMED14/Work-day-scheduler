@@ -48,13 +48,10 @@ $(function () {
       const savedDescription = localStorage.getItem(planId);
       console.log(planId, ":", savedDescription);
       if (savedDescription) {
-        $(this).find(".description").val(savedDescription);
+        $(this).find(".description").text(savedDescription);
       }
     });
   }
-
-  // localStorage.clear();
-  console.log(localStorage);
 
   getPlanFromStorage();
 });
