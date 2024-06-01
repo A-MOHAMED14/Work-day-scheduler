@@ -7,6 +7,10 @@ const textareaEl = $(".description");
 const timeBlockEl = $(".time-block");
 
 $(function () {
+  // TODO: Add code to display the current date in the header of the page.
+  // FORMAT: Monday, December 14th
+  currentDateEL.text(dayjs().format("dddd[,] MMMM, DD"));
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -14,23 +18,22 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
 
-  saveBtnEl.on("click", (event) => {
-    event.preventDefault();
-
-    // console.log($(this).parents(), "<---");
-
-    const parentEl = $(event.target).closest(".time-block");
+  saveBtnEl.on("click", function () {
+    const parentEl = $(this).closest(".time-block");
     const plandId = parentEl.attr("id");
-    const planDescription = textareaEl.val();
+    const planDescription = parentEl.find(".description").val();
 
-    function savePlanToStorage() {
-      localStorage.setItem(plandId, planDescription);
-    }
+    // console.log(parentEl, "<-----");
+    // console.log(plandId, "<-----");
+    // console.log(planDescription, "<-----");
 
-    savePlanToStorage();
-
-    getPlanFromStorage(plandId);
+    savePlanToStorage(plandId, planDescription);
   });
+
+  function savePlanToStorage(plandId, planDescription) {
+    console.log(plandId, planDescription);
+    localStorage.setItem(plandId, planDescription);
+  }
 
   //
   // TODO: Add code to apply the past, present, or future class to each time
@@ -64,21 +67,19 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
 
-  function getPlanFromStorage(plandId) {
-    textareaEl.text(localStorage.getItem(plandId));
+  function getPlanFromStorage() {
+    timeBlockEl.each(function () {
+      const planId = $(this).attr("id");
+      const savedDescription = localStorage.getItem(planId);
+      console.log(planId, ":", savedDescription);
+      if (savedDescription) {
+        $(this).find(".description").val(savedDescription);
+      }
+    });
   }
 
   // localStorage.clear();
-  // console.log(localStorage);
+  console.log(localStorage);
 
-  //
-  // TODO: Add code to display the current date in the header of the page.
-  // FORMAT: Monday, December 14th - DD, MMM, ??
-  currentDateEL.text(dayjs().format("dddd[,] MMMM, D[th]"));
+  getPlanFromStorage();
 });
-
-// const textareaClass = textareaEl.attr("class");
-// const classList = textareaClass.split(" ");
-// const hourClass = classList.find((className) =>
-//   className.startsWith("hour-")
-// );
