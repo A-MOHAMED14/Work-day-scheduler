@@ -1,33 +1,31 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+// Select necessary elements from the DOM
 const currentDateEL = $("#currentDay");
 const saveBtnEl = $(".saveBtn");
-const textareaEl = $(".description");
 const timeBlockEl = $(".time-block");
 
+// Ensure DOM is fully loaded before running code
 $(function () {
+  // Display the current date in the header of the page
   currentDateEL.text(dayjs().format("dddd[,] MMMM, DD"));
 
+  // Save button click event to save the description to local storage
   saveBtnEl.on("click", function () {
     const parentEl = $(this).closest(".time-block");
-    const plandId = parentEl.attr("id");
+    const planId = parentEl.attr("id");
     const planDescription = parentEl.find(".description").val();
-
-    savePlanToStorage(plandId, planDescription);
+    savePlanToStorage(planId, planDescription);
   });
 
-  function savePlanToStorage(plandId, planDescription) {
-    console.log(plandId, planDescription);
-    localStorage.setItem(plandId, planDescription);
+  // Save the plan to local storage
+  function savePlanToStorage(planId, planDescription) {
+    localStorage.setItem(planId, planDescription);
   }
 
+  // Add the appropriate class to each time block based on the current time
   function addTenseClass() {
     timeBlockEl.each(function () {
       const blockTimeID = $(this).attr("id");
-
       const blockTimeHr = parseInt(blockTimeID.slice(5));
-
       const currentTimeHr = parseInt(dayjs().format("H"));
 
       if (blockTimeHr > currentTimeHr) {
@@ -42,11 +40,11 @@ $(function () {
 
   addTenseClass();
 
+  // Retrieve user input saved in local storage and set the values of the corresponding textarea elements
   function getPlanFromStorage() {
     timeBlockEl.each(function () {
       const planId = $(this).attr("id");
       const savedDescription = localStorage.getItem(planId);
-      console.log(planId, ":", savedDescription);
       if (savedDescription) {
         $(this).find(".description").text(savedDescription);
       }
