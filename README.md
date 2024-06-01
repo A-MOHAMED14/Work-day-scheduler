@@ -6,7 +6,7 @@ The goal of this project is to create a simple calendar application by modifying
 
 ## Live Demo
 
-To access the live website, <a href="">click here</a>
+To access the live website, <a href="https://a-mohamed14.github.io/Work-day-scheduler/">click here</a>
 
 ## Key Features And Accomplishments
 
