@@ -7,3 +7,17 @@ The goal of this project is to create a simple calendar application by modifying
 ## Live Demo
 
 To access the live website, <a href="">click here</a>
+
+## Key Features And Accomplishments
+
+- **Current Day Display:** When the planner is opened, the current day is displayed at the top of the calendar.
+
+- **Standard Business Hours:** The planner includes timeblocks for the standard business hours of 9am to 5pm, ensuring all work hours are covered.
+
+- **Colour Coded Timeblocks:** Each timeblock is color-coded to visually indicate whether it is in the past, present, or future, providing a clear and immediate understanding of the schedule.
+
+- **Event Entry:** Users can easily click into any timeblock to enter an event, making scheduling quick and intuitive.
+
+- **Event Saving:** A save button within each timeblock allows users to save their events. The event text is stored in local storage, ensuring data is not lost.
+
+- **Persistence:** Saved events persist even when the page is refreshed, thanks to the integration with local storage, allowing users to maintain their schedule without re-entering data.
